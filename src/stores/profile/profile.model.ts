@@ -1,0 +1,22 @@
+import { t } from 'mobx-state-tree';
+import { SessionContextValue } from 'next-auth/react';
+
+export const ProfileModel = t
+	.model({
+		expires: t.maybeNull(t.union(t.Date, t.string)),
+		name: t.maybeNull(t.string),
+		image: t.maybeNull(t.string),
+		email: t.maybeNull(t.string),
+	})
+	.views((self) => ({
+		get getProfile() {
+			return self;
+		},
+	}))
+	.actions((self) => ({
+		setProfile(session: SessionContextValue) {
+			self.expires = new Date(session.data?.expires ?? '');
+
+			Object.assign(self, session.data?.user);
+		},
+	}));
