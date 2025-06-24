@@ -3,7 +3,12 @@ import React from 'react';
 export default function Constructor() {
 	return (
 		<div>
-			<Scene />
+			<Scene>
+				<mesh>
+					<boxGeometry args={[1, 1, 1]} />
+					<meshBasicMaterial color={'blue'} />
+				</mesh>
+			</Scene>
 		</div>
 	);
 }
