@@ -13,11 +13,11 @@ export default function CustomGridCell({ position, size = 1 }: ICustomGridCell) 
 	const [isHovered, setHovered] = useState(false);
 	const handlerPointerOver = () => {
 		setHovered(true);
-		console.log(position);
 	};
 	const handlerPointerOut = () => {
 		setHovered(false);
 	};
+
 	return (
 		<mesh
 			position={position}

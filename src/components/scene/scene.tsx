@@ -20,9 +20,9 @@ export function Scene({ children, isControl = true }: IScene) {
 				<CustomGrid isVertical side="right" /> */}
 				{isControl && (
 					<CameraControls
-						azimuthAngle={-0.5}
-						polarAngle={1}
-						distance={10}
+						azimuthAngle={-0.8}
+						polarAngle={0.5}
+						distance={8}
 						maxDistance={20}
 						minDistance={2}
 					/>
