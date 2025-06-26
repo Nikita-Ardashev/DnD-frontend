@@ -1,35 +1,35 @@
-'use client';
 import { ThreeElements, Vector3 } from '@react-three/fiber';
 import React from 'react';
-import { DoubleSide, Euler } from 'three';
+import { Euler } from 'three';
+import CustomGridCell from './customGridCell';
 
-type TMeshProps = ThreeElements['mesh'];
+type TGroupProps = ThreeElements['group'];
 
-interface ICustomProps extends TMeshProps {
+interface ICustomProps extends TGroupProps {
 	isVertical?: boolean;
 	side?: 'center' | 'left' | 'right';
 }
 
-export default function CustomGrid({
-	isVertical = false,
-	side = 'center',
-	...meshProps
-}: ICustomProps) {
+const COUNT = 10;
+const cell = (COUNT / 2) * 10;
+const generatePosCell: Vector3[] = [];
+
+for (let i = -cell; i < cell; i++) {
+	const step = Math.floor(i / COUNT);
+
+	generatePosCell.push([i % COUNT, step, 0]);
+}
+
+export default function CustomGrid({ isVertical = false, ...groupProps }: ICustomProps) {
 	const rotation: Euler = new Euler(isVertical ? Math.PI / 2 : -Math.PI / 2, 0, 0);
-	const position: Vector3 = [0, 0, 0];
-	if (Object.values(meshProps).length === 0 || meshProps === undefined) {
-	}
+
+	const lines = generatePosCell.map((pos, i) => {
+		return <CustomGridCell key={i} position={pos} />;
+	});
 
 	return (
-		<mesh {...meshProps} rotation={rotation} position={position}>
-			<planeGeometry args={[10, 10, 10, 10]} />
-			<meshBasicMaterial
-				color="gray"
-				transparent
-				opacity={0.5}
-				wireframe
-				side={DoubleSide}
-			/>
-		</mesh>
+		<group rotation={rotation} {...groupProps}>
+			{lines}
+		</group>
 	);
 }

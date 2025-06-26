@@ -16,8 +16,8 @@ export function Scene({ children, isControl = true }: IScene) {
 			<Canvas style={{ width: '100%', height: '100%', background: 'black' }}>
 				{children}
 				<CustomGrid />
-				<CustomGrid isVertical side="left" />
-				<CustomGrid isVertical side="right" />
+				{/* <CustomGrid isVertical side="left" />
+				<CustomGrid isVertical side="right" /> */}
 				{isControl && (
 					<CameraControls
 						azimuthAngle={-0.5}
