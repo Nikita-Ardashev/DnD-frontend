@@ -19,7 +19,7 @@ export default function CustomGridCell({ size = 1, ...meshProps }: ICustomGridCe
 		opacity: 0.5,
 		wireframe: true,
 		side: FrontSide,
-		color: isHovered ? 'red' : 'gray',
+		color: isHovered ? 'blue' : 'gray',
 	});
 
 	const handlerPointerOver = (e: ThreeEvent<PointerEvent>) => {
