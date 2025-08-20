@@ -1,7 +1,7 @@
 import { ThreeElements, Vector3 } from '@react-three/fiber';
 import React from 'react';
 import { BoxGeometry, Euler } from 'three';
-import CustomGridCell from './customGridCell';
+import { CustomGridCell } from './';
 type TGroupProps = Omit<ThreeElements['group'], 'children'>;
 type TMeshProps = ThreeElements['mesh'];
 interface ICustomProps extends TGroupProps {
@@ -29,7 +29,7 @@ const lines = generateGridLines().map((pos, i) => (
 	<CustomGridCell key={i} position={pos} />
 ));
 
-export default function CustomGrid({ isViewGrid = true, ...groupProps }: ICustomProps) {
+export function CustomGrid({ isViewGrid = true, ...groupProps }: ICustomProps) {
 	return (
 		<group position={position} rotation={rotation} {...groupProps}>
 			<mesh {...groupProps.mesh} />

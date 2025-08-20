@@ -10,7 +10,7 @@ interface ICustomGridCell extends TMesh {
 	size?: number;
 }
 
-export default function CustomGridCell({ size = 1, ...meshProps }: ICustomGridCell) {
+export function CustomGridCell({ size = 1, ...meshProps }: ICustomGridCell) {
 	const [isHovered, setHovered] = useState(false);
 
 	const geometry: BoxGeometry = new BoxGeometry(size, size);
