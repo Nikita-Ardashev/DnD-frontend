@@ -1,7 +1,7 @@
 import { t } from 'mobx-state-tree';
 import { SessionContextValue } from 'next-auth/react';
 
-export const ProfileModel = t
+export const ModelProfile = t
 	.model({
 		expires: t.maybeNull(t.union(t.Date, t.string)),
 		name: t.maybeNull(t.string),

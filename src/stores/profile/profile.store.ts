@@ -1,3 +1,3 @@
-import { ProfileModel } from './profile.model';
+import { ModelProfile } from './profile.model';
 
-export const ProfileStore = ProfileModel.create({});
+export const StoreProfile = ModelProfile.create({});

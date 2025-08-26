@@ -1,5 +1,40 @@
-import { Gltf, GltfProps } from '@react-three/drei';
+'use client';
 
-export function GLTFModel(props: GltfProps) {
-	return <Gltf {...props} useDraco="/draco-gltf" />;
+import { StoreScene } from '@/stores/scene/scene.store';
+import { DragControls, Gltf, GltfProps, PivotControls } from '@react-three/drei';
+import { useCallback, useState } from 'react';
+
+interface IGLTFModel extends GltfProps {}
+
+export function GLTFModel(props: IGLTFModel) {
+	const setIsControl = StoreScene.setIsControl;
+
+	const [dragging, setDragging] = useState(false);
+
+	const setDisabledControl = useCallback(() => {
+		setIsControl(false);
+	}, [setIsControl]);
+	const setEnabledControl = useCallback(() => {
+		setIsControl(true);
+	}, [setIsControl]);
+
+	return (
+		<DragControls onDragStart={setDisabledControl} onDragEnd={setEnabledControl}>
+			<PivotControls
+				onDragStart={setDisabledControl}
+				onDragEnd={setEnabledControl}
+				autoTransform
+				anchor={[-1.5, -1.5, -1.5]}
+				enabled={dragging}
+			>
+				<Gltf
+					{...props}
+					onClick={() => {
+						setDragging(true);
+					}}
+					useDraco="/draco-gltf"
+				/>
+			</PivotControls>
+		</DragControls>
+	);
 }

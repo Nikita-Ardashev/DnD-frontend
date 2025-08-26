@@ -1,21 +1,23 @@
 import { t } from 'mobx-state-tree';
 
-const MSTPosition = t.refinement(t.array(t.number), (arr) => {
-	if (arr === undefined) return false;
-	return arr.length <= 3;
-});
-
-export const SceneCellModel = t.model({
-	position: MSTPosition,
-	rotation: MSTPosition,
-});
-
-export const SceneSelect = t.model({
-	position: MSTPosition,
-});
-
-export const SceneModel = t.model({
-	id: t.string,
-	isViewGrid: t.boolean,
-	isEditable: t.boolean,
-});
+export const ModelScene = t
+	.model({
+		isViewGrid: t.optional(t.boolean, true),
+		isEditable: t.optional(t.boolean, true),
+		isControl: t.optional(t.boolean, true),
+		groups: t.array(t.string),
+		meshes: t.array(t.string),
+	})
+	.views((self) => ({
+		get getIsControl() {
+			return self.isControl;
+		},
+		get get() {
+			return self;
+		},
+	}))
+	.actions((self) => ({
+		setIsControl(state: boolean) {
+			self.isControl = state;
+		},
+	}));
