@@ -9,17 +9,14 @@ import {
 	PivotControls,
 } from '@react-three/drei';
 import styles from './scene.module.sass';
-import { BoxGeometry, MeshBasicMaterial, Vector3 } from 'three';
+import { BoxGeometry } from 'three';
 import { CustomGrid } from '../customGrid';
 import { GLTFModel } from '../GLTFModel';
 import { StoreScene, StoreSceneHistory } from '@/stores/scene/scene.store';
 import { observer } from 'mobx-react-lite';
-interface IScene {
-	children?: React.ReactNode;
-}
 
 export const Scene = memo(
-	observer(function Scene({ children }: IScene) {
+	observer(function Scene() {
 		const control = StoreScene.isControl;
 		const meshes = StoreScene.meshes;
 
@@ -28,7 +25,9 @@ export const Scene = memo(
 			if (e.key === 'z' && e.ctrlKey && e.shiftKey) StoreSceneHistory.redo();
 		};
 
-		window.onkeyup = handlerKey;
+		useEffect(() => {
+			window.onkeyup = handlerKey;
+		}, []);
 
 		const meshesRender = useMemo(
 			() =>
@@ -44,13 +43,10 @@ export const Scene = memo(
 				<Canvas style={{ width: '100%', height: '100%', background: 'grey' }}>
 					<PivotControls autoTransform={false}>
 						{meshesRender}
-						{children}
 						<CustomGrid
 							isViewGrid={true}
 							mesh={{
-								position: new Vector3(5, -5, 0),
 								geometry: new BoxGeometry(10, 10, 1),
-								material: new MeshBasicMaterial({ color: 'blue' }),
 							}}
 						/>
 
