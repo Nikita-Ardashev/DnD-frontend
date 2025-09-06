@@ -42,10 +42,10 @@ const createCell = (side: TSideClick, parentCellPosition: Vector3) => {
 			position.setZ(position.z - 1);
 		},
 		top: () => {
-			position.setY(position.y - 1);
+			position.setY(position.y + 1);
 		},
 		bottom: () => {
-			position.setY(position.y + 1);
+			position.setY(position.y - 1);
 		},
 		left: () => {
 			position.setX(position.x - 1);
@@ -95,7 +95,8 @@ export function CustomGridCell({ cellId, ...meshProps }: ICustomGridCell) {
 		StoreScene.grid.addCell(position);
 	};
 
-	const handleOnClickRight = () => {
+	const handleOnClickRight = (e: ThreeEvent<PointerEvent>) => {
+		e.stopPropagation();
 		StoreScene.grid.removeCell(cellId);
 	};
 
