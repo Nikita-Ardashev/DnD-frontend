@@ -4,6 +4,7 @@ import { Euler } from 'three';
 import { CustomGridCell } from './customGridCell';
 import { StoreScene } from '@/stores/scene/scene.store';
 import { observer } from 'mobx-react-lite';
+
 type TGroupProps = Omit<ThreeElements['group'], 'children'>;
 interface ICustomProps extends TGroupProps {
 	isViewGrid?: boolean;
@@ -15,7 +16,7 @@ export const CustomGrid = memo(
 			<CustomGridCell key={i} position={cell.position.getArray} cellId={cell.id} />
 		));
 		return (
-			<group position={[1, 1, 1]} rotation={new Euler(0, 0, 0)} {...groupProps}>
+			<group position={[2, 1, 1]} rotation={new Euler(0, 0, 0)} {...groupProps}>
 				{isViewGrid && lines}
 			</group>
 		);

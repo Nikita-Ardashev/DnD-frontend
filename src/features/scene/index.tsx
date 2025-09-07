@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import {
 	CameraControls,
@@ -13,6 +13,7 @@ import { CustomGrid } from '../customGrid';
 import { GLTFModel } from '../GLTFModel';
 import { StoreScene, StoreSceneHistory } from '@/stores/scene/scene.store';
 import { observer } from 'mobx-react-lite';
+import { handlerCTRL, handlerCTRLShift } from '@/utils/handlerKeys';
 
 export const Scene = memo(
 	observer(function Scene() {
@@ -20,30 +21,34 @@ export const Scene = memo(
 		const meshes = StoreScene.meshes;
 
 		const handlerKey = (e: KeyboardEvent) => {
-			if (e.key.toLowerCase() === 'z' && e.ctrlKey && !e.shiftKey) {
-				StoreSceneHistory.undo();
-			}
-			if (e.key.toLowerCase() === 'z' && e.ctrlKey && e.shiftKey) {
-				StoreSceneHistory.redo();
-			}
+			handlerCTRL({
+				e,
+				key: 'z',
+				handler: () => {
+					StoreSceneHistory.undo();
+				},
+			});
+			handlerCTRLShift({
+				e,
+				key: 'z',
+				handler: () => {
+					StoreSceneHistory.redo();
+				},
+			});
 		};
 
 		useEffect(() => {
 			window.onkeyup = handlerKey;
 		}, []);
 
-		const meshesRender = useMemo(
-			() =>
-				meshes.map((m) => {
-					const scale = m.scale?.getArray;
-					return <GLTFModel src={m.fileURL} key={m.id} scale={scale} />;
-				}),
-			[meshes],
-		);
+		const meshesRender = meshes.map((m) => {
+			const scale = m.scale?.getArray;
+			return <GLTFModel src={m.fileURL} key={m.id} scale={scale} />;
+		});
 
 		return (
 			<div className={styles.scene}>
-				<Canvas style={{ width: '100%', height: '100%', background: 'grey' }}>
+				<Canvas style={{ width: '100%', height: '100%' }}>
 					<PivotControls autoTransform={false}>
 						{meshesRender}
 						<CustomGrid isViewGrid={true} />

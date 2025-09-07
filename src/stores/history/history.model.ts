@@ -33,7 +33,6 @@ export const ModelHistory = (store: IStateTreeNode) => {
 				self.isNowChange = true;
 				self.currentIndex++;
 				const path = self.path[self.currentIndex];
-				console.log(path);
 				applyPatch(store, path);
 			},
 		}))

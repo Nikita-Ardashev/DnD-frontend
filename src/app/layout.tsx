@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Providers } from './provider';
 import '@/styles/global.sass';
+import { Header } from '@/components/header';
 
 export const metadata: Metadata = {
 	title: 'DnD',
@@ -16,6 +17,7 @@ export default function RootLayout({
 		<html lang="ru">
 			<body>
 				<Providers>
+					<Header />
 					<main>{children}</main>
 				</Providers>
 			</body>

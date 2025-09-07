@@ -91,8 +91,7 @@ export function CustomGridCell({ cellId, ...meshProps }: ICustomGridCell) {
 		if (e.normal === undefined) return;
 		const side = getSideFromNormal(e.normal);
 		const { x, y, z } = createCell(side, e.object.position);
-		const position = { x, y, z };
-		StoreScene.grid.addCell(position);
+		StoreScene.grid.addCell({ x, y, z });
 	};
 
 	const handleOnClickRight = (e: ThreeEvent<PointerEvent>) => {

@@ -30,7 +30,7 @@ export async function GET(
 
 		const body = (await response.json()) as IYandexResponseFile;
 
-		const file = await fetch(body.href, {
+		const file = await fetch(body.href + '/download?path=DND', {
 			headers: {
 				Authorization: `OAuth ${oauthToken}`,
 				Accept: '*/*',
